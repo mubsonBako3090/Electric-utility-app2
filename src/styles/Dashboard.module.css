@@ -1,0 +1,223 @@
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.unauthorized {
+  padding: 120px 0 80px;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.unauthorized i {
+  font-size: 4rem;
+  color: #dc3545;
+  margin-bottom: 1.5rem;
+}
+
+.unauthorized h2 {
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
+}
+
+.dashboard {
+  padding-top: 80px;
+}
+
+.welcomeSection {
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  color: white;
+  padding: 3rem 0;
+}
+
+.welcomeSection h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.welcomeSubtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+.accountStatus {
+  text-align: right;
+}
+
+.statusBadge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.statCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+}
+
+.statIcon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+}
+
+.statIcon i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.statContent h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--dark-gray);
+}
+
+.statContent p {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--dark-gray);
+}
+
+.statContent small {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.actionsSection {
+  background: var(--light-gray);
+}
+
+.actionCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.actionCard:hover {
+  transform: translateY(-5px);
+}
+
+.actionCard i {
+  font-size: 2.5rem;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+}
+
+.actionCard h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--dark-gray);
+}
+
+.actionCard p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.notifications {
+  max-width: 600px;
+}
+
+.notificationItem {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.notificationItem:hover {
+  transform: translateX(5px);
+}
+
+.notificationIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.notificationItem:nth-child(1) .notificationIcon {
+  background: #cce7ff;
+  color: #004085;
+}
+
+.notificationItem:nth-child(2) .notificationIcon {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.notificationContent {
+  flex: 1;
+}
+
+.notificationContent p {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--dark-gray);
+}
+
+.notificationContent small {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .welcomeSection h1 {
+    font-size: 2rem;
+  }
+  
+  .statCard {
+    padding: 1.5rem;
+  }
+  
+  .statIcon {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+  }
+  
+  .statIcon i {
+    font-size: 1.2rem;
+  }
+  
+  .statContent h3 {
+    font-size: 1.5rem;
+  }
+}

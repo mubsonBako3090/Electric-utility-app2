@@ -1,0 +1,203 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons";
+
+:root {
+  --bgColor: #3c3d61ff;
+  --lightColor: #fafafa;
+  --hoverColor: #75757a;
+  --softColor: #dfd9ff;
+  --textColor: #f4f5f5;
+}
+
+/*--------------------------------------------------------------
+  # Navbar Section
+  --------------------------------------------------------------*/
+
+body {
+  background-color: var(--bgColor);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  padding: 0;
+  background: var(--lightColor);
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  align-items: end;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.navbar a,
+.navbar a:focus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 10px 30px;
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bg-primary);
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.navbar a:hover,
+.navbar .active,
+.navbar .active:focus,
+.navbar li:hover > a {
+  color: var(--softColor);
+}
+
+/*--------------------------------------------------------------
+# General Title Section
+--------------------------------------------------------------*/
+.section-title h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--softColor);
+  line-height: 60px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.section-title p {
+  color: var(--hoverColor);
+
+  font-size: 26px;
+}
+/*--------------------------------------------------------------
+# MainPage Section
+--------------------------------------------------------------*/
+.mainPage {
+  width: 100%;
+  height: 100%;
+  background: var(--bgColor);
+}
+
+.mainPage .king h1 {
+  margin: 0;
+  font-size: 80px;
+  font-weight: 900;
+  color: var(--lightColor);
+}
+
+.mainPage .king h2 {
+  color: var(--textColor);
+  margin: 20px 0 0 0;
+  font-size: 26px;
+  font-weight: 600;
+}
+.mainPage .king p {
+  color: var(--lightColor);
+  margin: 20px 0 0 0;
+  font-size: 20px;
+}
+
+.mainPage .uper .img-head {
+  color: var(--lightColor);
+  font-size: 26px;
+}
+
+.mainPage .uper .btn-get-started {
+  margin-top: 30px;
+  line-height: 0;
+  padding: 15px 40px;
+  border-radius: 4px;
+  transition: 0.5s;
+  color: var(--lightColor);
+  background: linear-gradient(var(--testColor), var(--softColor));
+  box-shadow: 0px 5px 30px rgba(65, 84, 241, 0.4);
+}
+
+.mainPage .uper .btn-get-started span {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.mainPage .uper .btn-get-started i {
+  margin-left: 5px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.mainPage .uper .btn-get-started:hover i {
+  transform: translateX(5px);
+}
+
+.mainPage .uper img {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.mainPage .uper .hero-img {
+  text-align: right;
+}
+
+@media (min-width: 1024px) {
+  .mainPage {
+    background-attachment: fixed;
+  }
+  .mainPage .uper .hero-img img {
+    height: 85%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainPage {
+    height: auto;
+    text-align: center;
+    padding: 10px 0 60px 0;
+  }
+  .mainPage .uper img {
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .mainPage .uper .hero-img {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .mainPage .uper .hero-img img {
+    width: 100%;
+  }
+
+  .mainPage .uper h1 {
+    margin-top: 20px;
+    font-size: 22px;
+  }
+
+  .mainPage .uper h2 {
+    color: var(--textColor);
+    font-size: 18px;
+  }
+}
+.section {
+  background-color: var(--bgColor);
+  margin-top: 50px;
+}
+.sectionTitle h3 {
+  font-weight: 900px;
+  font-size: 25px;
+  color: var(--textColor);
+}
+.sectionTitle h4 {
+  font-weight: 900px;
+  font-size: 25px;
+  color: var(--lightColor);
+  padding-left: 5px;
+}
+
+
+

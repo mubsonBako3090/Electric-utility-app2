@@ -1,0 +1,13 @@
+.loadingContainer { padding: 2rem; text-align: center; }
+.unauthorized { padding: 2rem; }
+.bills { padding: 1.5rem; }
+.billsHeader { margin-bottom: 1rem; }
+.billsSubtitle { color: #666; }
+.billSummary { font-size: 0.95rem; }
+.quickStats { margin-top: 1rem; }
+.statCard { display: flex; gap: 0.75rem; align-items: center; padding: 1rem; border-radius: 8px; border: 1px solid #eee; }
+.filterTabs { margin-bottom: 1rem; }
+.filterButtons button { margin-left: 0.5rem; }
+.emptyState { text-align: center; padding: 2rem; }
+.paymentMethods { padding: 2rem 0; }
+.paymentMethod { padding: 1rem; border-radius: 8px; border: 1px solid #eee; }
