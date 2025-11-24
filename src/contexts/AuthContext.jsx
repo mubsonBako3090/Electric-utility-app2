@@ -1,4 +1,5 @@
 'use client';
+
 import { createContext, useState, useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -17,35 +18,37 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  // -------------------------------------------
+  // CHECK AUTH STATUS USING HTTP-ONLY COOKIE
+  // -------------------------------------------
   useEffect(() => {
     checkAuthStatus();
   }, []);
 
   const checkAuthStatus = async () => {
     try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const response = await fetch('/api/auth/verify', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        
-        if (response.ok) {
-          const userData = await response.json();
-          setUser(userData);
-        } else {
-          await logout(); 
-        }
+      const response = await fetch('/api/auth/verify', {
+        method: 'GET',
+        credentials: 'include', // ⭐ Important for cookie auth
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data.user);
+      } else {
+        setUser(null);
       }
     } catch (error) {
       console.error('Auth check failed:', error);
-      await logout();
+      setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
+  // -------------------------------------------
+  // LOGIN
+  // -------------------------------------------
   const login = async (email, password) => {
     try {
       const response = await fetch('/api/auth/login', {
@@ -53,68 +56,80 @@ export function AuthProvider({ children }) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // ⭐ allow cookies to be set
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
         setUser(data.user);
         return { success: true, user: data.user };
-      } else {
-        return { success: false, error: data.message || 'Login failed' };
       }
+
+      return { success: false, error: data.message || 'Login failed' };
     } catch (error) {
       return { success: false, error: 'Network error. Please try again.' };
     }
   };
 
+  // -------------------------------------------
+  // REGISTER (ALSO USES COOKIE AUTH)
+  // -------------------------------------------
   const register = async (userData) => {
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(userData),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
         setUser(data.user);
         return { success: true, user: data.user };
-      } else {
-        return { success: false, error: data.message || 'Registration failed' };
       }
+
+      return { success: false, error: data.message || 'Registration failed' };
     } catch (error) {
       return { success: false, error: 'Network error. Please try again.' };
     }
   };
 
+  // -------------------------------------------
+  // LOGOUT
+  // -------------------------------------------
   const logout = async () => {
     try {
       await fetch('/api/auth/logout', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+        credentials: 'include',
       });
     } catch (error) {
-      console.error('Logout API call failed:', error);
+      console.error('Logout error:', error);
     } finally {
-      localStorage.removeItem('token');
-      sessionStorage.removeItem('token');
       setUser(null);
       router.push('/');
       router.refresh();
     }
   };
 
+  // -------------------------------------------
+  // CONTEXT VALUE
+  // -------------------------------------------
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        register,
+        logout,
+        loading,
+        isAuthenticated: !!user, // ⭐ Now Dashboard will work
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

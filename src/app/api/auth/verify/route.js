@@ -1,62 +1,54 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import connectDB from '@/lib/database';
-import { getUserIdFromRequest } from '@/lib/auth';
 import User from '@/models/User';
-import { successResponse, errorResponse } from '@/lib/utils';
+import { verifyToken } from '@/lib/auth';
 
-export async function GET(request) {
+export async function GET() {
   try {
     await connectDB();
 
-    const userId = await getUserIdFromRequest(request);
-    
-    if (!userId) {
+    // Get token from HTTP-only cookie
+    const token = cookies().get('token')?.value;
+
+    if (!token) {
       return NextResponse.json(
-        errorResponse('Not authenticated'),
+        { success: false, message: 'Not authenticated' },
         { status: 401 }
       );
     }
 
-    const user = await User.findById(userId).select('-password');
-    
+    // Decode & verify JWT
+    let decoded;
+    try {
+      decoded = verifyToken(token);
+    } catch (err) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid or expired token' },
+        { status: 401 }
+      );
+    }
+
+    // Load the user from DB
+    const user = await User.findById(decoded.userId).select('-password');
+
     if (!user) {
       return NextResponse.json(
-        errorResponse('User not found'),
+        { success: false, message: 'User not found' },
         { status: 404 }
       );
     }
 
-    if (!user.isActive) {
-      return NextResponse.json(
-        errorResponse('Account is deactivated'),
-        { status: 401 }
-      );
-    }
-
-    return NextResponse.json(
-      successResponse({
-        user: {
-          id: user._id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          phone: user.phone,
-          accountNumber: user.accountNumber,
-          meterNumber: user.meterNumber,
-          customerType: user.customerType,
-          address: user.address,
-          preferences: user.preferences,
-          lastLogin: user.lastLogin,
-          isVerified: user.isVerified
-        }
-      }, 'Token is valid')
-    );
+    return NextResponse.json({
+      success: true,
+      user,
+    });
 
   } catch (error) {
-    console.error('Token verification error:', error);
+    console.error('Verify error:', error);
     return NextResponse.json(
-      errorResponse('Token verification failed'),
-      { status: 401 }
+      { success: false, message: 'Internal server error' },
+      { status: 500 }
     );
-  }
+  }
 }
